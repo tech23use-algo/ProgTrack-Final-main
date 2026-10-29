@@ -25,4 +25,5 @@ public final class Requests { private Requests(){}
  public record RoleChange(@NotNull Role role){}
  public record StatusChange(@NotNull Boolean active){}
  public record ManagerChange(Long managerId){}
+ public record PasswordReset(@NotBlank @Size(min=8,max=100) String password){}
 }

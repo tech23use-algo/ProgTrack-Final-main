@@ -9,6 +9,32 @@ services:
       - "3306:3306"
     volumes:
       - goal_tracker_mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pgoal_tracker_dev"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─────────────────────────────────────────────────────────────────
+  # Adminer – lightweight web UI to browse / query the MySQL database
+  # Open http://localhost:8081 in your browser
+  #   System:   MySQL
+  #   Server:   mysql
+  #   Username: root
+  #   Password: goal_tracker_dev
+  #   Database: goal_tracker
+  # ─────────────────────────────────────────────────────────────────
+  adminer:
+    image: adminer:4
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql
+      ADMINER_DESIGN: pepa-linha
+    depends_on:
+      mysql:
+        condition: service_healthy
 
 volumes:
   goal_tracker_mysql:

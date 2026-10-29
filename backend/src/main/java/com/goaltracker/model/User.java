@@ -31,5 +31,5 @@ public class User {
     public User(String email, String passwordHash, String displayName) { this(email, passwordHash, displayName, Role.USER); }
     public User(String email, String passwordHash, String displayName, Role role) { this.email=email; this.passwordHash=passwordHash; this.displayName=displayName; this.role=role; }
     public Long getId(){return id;} public String getEmail(){return email;} public String getPasswordHash(){return passwordHash;} public String getDisplayName(){return displayName;} public List<Goal> getGoals(){return goals;} public Role getRole(){return role;} public boolean isActive(){return active;} public Long getManagerId(){return managerId;} public Instant getCreatedAt(){return createdAt;}
-    public void setRole(Role role){this.role=role;} public void setActive(boolean active){this.active=active;} public void setManagerId(Long managerId){this.managerId=managerId;}
+    public void setRole(Role role){this.role=role;} public void setActive(boolean active){this.active=active;} public void setManagerId(Long managerId){this.managerId=managerId;} public void setPasswordHash(String passwordHash){this.passwordHash=passwordHash;}
 }
