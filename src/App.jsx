@@ -256,6 +256,13 @@ function Layout({ kind, children }) {
   const location = useLocation();
   const u = user();
   const isDemo = isDemoMode();
+  const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem('goal_theme') === 'dark');
+
+  useEffect(() => {
+    const theme = isDarkMode ? 'dark' : 'light';
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem('goal_theme', theme);
+  }, [isDarkMode]);
 
   const links =
     kind === 'user'
@@ -327,6 +334,25 @@ function Layout({ kind, children }) {
           </div>
 
           <div className="header-right">
+            <button
+              type="button"
+              className="theme-toggle"
+              aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
+              title={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
+              onClick={() => setIsDarkMode((dark) => !dark)}
+            >
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                {isDarkMode ? (
+                  <>
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l-1.42-1.42m11.3-11.3 1.42-1.42" />
+                  </>
+                ) : (
+                  <path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z" />
+                )}
+              </svg>
+              <span>{isDarkMode ? 'Light mode' : 'Dark mode'}</span>
+            </button>
             <div className="profile-pill">
               <div className="profile-avatar">
                 {u?.displayName ? u.displayName[0].toUpperCase() : 'U'}

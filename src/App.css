@@ -9,6 +9,8 @@
   --line-strong: rgba(0, 0, 0, 0.14);
   --bg-app: #f6f8f5;
   --paper: #ffffff;
+  --header-bg: rgba(255, 255, 255, 0.75);
+  --badge-bg: rgba(0, 0, 0, 0.04);
   --lime: #c8f36b;
   --lime-bright: #b6f33d;
   --lime-tint: #f3fcd9;
@@ -37,6 +39,29 @@
   --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --ink: #e8eee9;
+  --ink-secondary: #c1cec5;
+  --muted: #a0afa6;
+  --muted-light: #819187;
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --bg-app: #141c19;
+  --paper: #1d2823;
+  --header-bg: rgba(25, 36, 31, 0.9);
+  --badge-bg: rgba(255, 255, 255, 0.07);
+  --lime-tint: rgba(182, 243, 61, 0.14);
+  --emerald-tint: rgba(16, 185, 129, 0.14);
+  --orange-tint: rgba(244, 125, 91, 0.14);
+  --indigo-tint: rgba(99, 102, 241, 0.16);
+  --violet-tint: rgba(139, 92, 246, 0.16);
+  --rose-tint: rgba(244, 63, 94, 0.14);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 20px -2px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 16px 36px -4px rgba(0, 0, 0, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -50,6 +75,12 @@ body {
               var(--bg-app);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+}
+
+:root[data-theme='dark'] body {
+  background: radial-gradient(circle at 85% 5%, rgba(80, 110, 56, 0.16) 0, transparent 35%),
+              radial-gradient(circle at 10% 90%, rgba(48, 93, 79, 0.16) 0, transparent 30%),
+              var(--bg-app);
 }
 
 /* =========================================
@@ -277,7 +308,7 @@ body {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.75);
+  background: var(--header-bg);
   backdrop-filter: blur(14px);
   position: sticky;
   top: 0;
@@ -295,7 +326,7 @@ body {
   font-size: 13px;
   font-weight: 600;
   color: var(--ink-secondary);
-  background: rgba(0, 0, 0, 0.04);
+  background: var(--badge-bg);
   padding: 5px 12px;
   border-radius: 30px;
   border: 1px solid var(--line);
@@ -308,6 +339,33 @@ body {
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.theme-toggle:hover {
+  background: var(--badge-bg);
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--lime-bright);
+  outline-offset: 2px;
 }
 
 .profile-pill {
@@ -367,7 +425,7 @@ body {
 
 /* Welcome Banner */
 .welcome-banner {
-  background: linear-gradient(135deg, #ffffff 0%, #fbfdf9 100%);
+  background: var(--paper);
   border: 1px solid var(--line);
   border-radius: var(--radius-xl);
   padding: 32px 36px;
@@ -642,7 +700,7 @@ body {
    ========================================= */
 
 .focus-widget {
-  background: linear-gradient(135deg, #ffffff 0%, #fbfdf9 100%);
+  background: var(--paper);
   border: 1px solid var(--line);
   border-radius: var(--radius-xl);
   padding: 24px 28px;
@@ -697,7 +755,7 @@ body {
 }
 
 .focus-step-card:hover {
-  background: #ffffff;
+  background: var(--paper);
   border-color: rgba(16, 185, 129, 0.3);
   box-shadow: var(--shadow-sm);
 }
@@ -707,7 +765,7 @@ body {
   height: 26px;
   border-radius: 8px;
   border: 2px solid #b8c6bd;
-  background: #ffffff;
+  background: var(--paper);
   cursor: pointer;
   display: grid;
   place-items: center;
@@ -1645,5 +1703,24 @@ body {
   
   .auth-art {
     padding: 40px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-right {
+    gap: 8px;
+  }
+
+  .theme-toggle {
+    padding: 9px;
+  }
+
+  .theme-toggle span,
+  .profile-info {
+    display: none;
+  }
+
+  .profile-pill {
+    padding: 4px;
   }
 }
